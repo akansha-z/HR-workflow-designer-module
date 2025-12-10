@@ -1,93 +1,65 @@
 # HR-workflow-designer-module
-HR Workflow Designer — Drag & Drop Workflow Builder
+A React + TypeScript application that allows users to visually design HR workflows using a low-code, drag-and-drop interface.
+Includes a node editor, mock API layer, and workflow simulation engine.
 
-A React + TypeScript application for visually designing HR process workflows.
-Built using React Flow, with fully editable nodes, mock APIs, and an interactive simulation engine.
-
-⭐ Overview
-
-This project implements a low-code workflow builder where HR teams can compose onboarding, hiring, or approval workflows using a drag-and-drop interface.
-Users can:
+✨ Features
+🎛️ Visual Workflow Canvas
 
 Drag nodes from a sidebar onto a canvas
 
-Connect them visually
-
-Configure node details in a form panel
-
-Run a mock simulation to validate the workflow
-
-The project meets the requirements outlined in the assignment PDF.
-
-🚀 Features
-🎛️ Workflow Canvas
-
-Drag nodes onto a visual graph
-
 Connect nodes with edges
 
-Auto-arranged handles for inputs/outputs
+Select and edit node configuration
 
-Select nodes to edit their properties
+Zoom, pan, and use mini-map
 
-Mini-map, panning, and zoom controls
-
-Basic graph integrity checks during simulation
+Basic structure validation during simulation
 
 🧱 Node Types
 
-Five node types are supported:
+The builder supports five configurable node types:
 
-Node Type	Purpose
-Start	First node of a workflow; supports metadata
-Task	User-performed action; supports description, due date, custom fields
-Approval	Requires manager/HR approval; optional threshold
-Automated Step	Integrates with mock automation actions; supports dynamic parameters
-End	Closing step; supports summary toggle
+Node Type	Includes
+Start	Title, metadata key–values
+Task	Title, description, assignee, due date, custom fields
+Approval	Approver role, threshold
+Automated Step	Automation action + dynamic parameters
+End	End message + summary toggle
 
-Each node type has unique fields and validation rules.
+Each node has its own styling and form fields.
 
 📝 Node Configuration Panel
 
-When a node is selected:
+When a node is selected, a right-side panel appears:
 
-Node details appear in the right panel
+Edit all node-specific fields
 
-All editable fields update live
+Add/remove key–value pairs (metadata/custom fields)
 
-Custom key–value pairs can be added or removed
-
-Automated nodes fetch available actions from mock API and render dynamic parameter fields
+For automated steps, available actions are loaded from mock API and parameter fields are generated dynamically
 
 🧪 Workflow Simulation Panel
 
-A bottom testing panel lets users validate workflow logic.
+A bottom testing panel lets users simulate the entire workflow.
 
-The simulation:
+The simulation performs:
 
-Serializes the current workflow (nodes + edges)
+✔️ Exactly one Start node
+✔️ Start has no incoming edges
+✔️ At least one End node
+✔️ BFS execution order logging
+✔️ Detection of unreachable segments or cycles
 
-Sends it to a mocked /simulate API
+Output includes:
 
-Performs structure validation:
+Step-by-step execution log
 
-Exactly one Start node
-
-Start node must have no incoming edges
-
-Must contain at least one End node
-
-Detects unreachable nodes or cycles
-
-Produces a step-by-step execution log (BFS traversal)
+Validation errors (if present)
 
 ⚙️ Mock API Layer
-
-The app includes a lightweight in-browser mock API:
-
 GET /automations
 
-Returns a set of automation actions, e.g.:
+Returns a list of available automation actions:
 
 [
   { "id": "send_email", "label": "Send Email", "params": ["to", "subject"] },
@@ -96,16 +68,16 @@ Returns a set of automation actions, e.g.:
 
 POST /simulate
 
-Accepts { nodes, edges } and returns:
+Receives workflow graph { nodes, edges } and returns execution results:
 
 {
-  success: boolean
-  log: string[]
-  errors?: string[]
+  success: boolean;
+  log: string[];
+  errors?: string[];
 }
 
 
-This keeps the project backend-free while matching the API contract expected in a real system.
+Implements workflow traversal and structural validation.
 
 📁 Project Structure
 src/
@@ -127,67 +99,57 @@ src/
   index.css
 
 
-This layout follows clean separation of concerns:
+The structure emphasizes clean separation of logic:
 
-Canvas logic → WorkflowCanvas.tsx
+Canvas behavior → WorkflowCanvas
 
-Node editing logic → NodeFormPanel.tsx
+Node UI & logic → NodeBase, NodeFormPanel
 
-Mock API interactions → mockApi.ts
+API logic → mockApi
 
-Shared Types → workflow.ts
+Shared modeling → workflow.ts
 
-UI Panels → Sidebar + TestPanel + Canvas
+🛠️ Installation & Running
+1. Clone repo
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
 
-🛠️ Installation & Running Locally
-1. Install dependencies
+2. Install dependencies
 npm install
 
-2. Start development server
+3. Start development server
 npm run dev
 
 
-Your app runs at:
+The app will be available at:
 
-http://localhost:5173
+👉 http://localhost:5173
 
 🎨 Design Decisions
-1. React Flow for visual workflow editing
+1. React Flow for workflow visualization
 
-React Flow provides an excellent abstraction for:
+Provides robust primitives for nodes, edges, selection, and layout.
 
-Node/edge rendering
+2. TypeScript unions for node data
 
-Drag-and-drop interactions
+Ensures predictable rendering and form behavior.
 
-Selection and connection logic
+3. Mock API instead of real backend
 
-Extensibility for custom nodes
+Spec allows JSON mocks, MSW, or local mocks → simplest to maintain.
 
-This reduces boilerplate and increases stability.
+4. BFS-based simulation
 
-2. TypeScript Discriminated Unions
+Easy to implement, easy to understand, and produces stable logs.
 
-Each node type has strongly typed fields. This ensures:
+5. Key–value editor for metadata/custom fields
 
-Form panel renders correct fields
+Gives flexibility without complex schema handling.
 
-Node logic stays predictable
+🚧 What Could Be Improved (Future Enhancements)
 
-Simulation receives well-defined structures
+These improvements are either optional or left intentionally incomplete based on assignment expectations:
 
-3. Local Mock API Instead of HTTP Server
+❌ Delete nodes/edges (UI or keyboard-based)
 
-The assignment allows using:
-
-JSON server, MSW, or local mocks.
-
-Local mocks simplify development while still matching the “API contract.”
-
-4. BFS Simulation for Clarity
-
-A breadth-first traversal is easy to understand and gives a clean, ordered execution log.
-
-5. Key–Value Editor Component
-
-To support flexible metadata and custom task fields.
+❌ Live validation while building (not only dur
