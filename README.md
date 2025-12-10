@@ -1,266 +1,441 @@
+# HR Workflow Designer
 
-🧩 **HR Workflow Designer — Drag & Drop Workflow Builder**
+A modern, interactive workflow designer application built with React, TypeScript, and Vite. This application allows users to create, configure, and simulate HR workflows using a visual drag-and-drop interface.
 
-A React + TypeScript application for visually designing HR process workflows.
-Built using React Flow, with fully editable nodes, mock APIs, and an interactive simulation engine.
+## 🚀 Features
 
-⭐ **Overview**
+- **Visual Workflow Designer**: Drag-and-drop interface for creating workflows
+- **Multiple Node Types**: Support for Start, Task, Approval, Automated, and End nodes
+- **Node Configuration**: Detailed configuration panels for each node type
+- **Workflow Simulation**: Sandbox mode to test and simulate workflows
+- **Export/Import**: Save and load workflows as JSON
+- **Modern UI**: Built with shadcn/ui components and Tailwind CSS
+- **Type-Safe**: Full TypeScript support for better development experience
 
-This project implements a low-code workflow builder where HR teams can compose onboarding, hiring, or approval workflows using a drag-and-drop interface.
-Users can:
+## 🛠️ Tech Stack
 
-Drag nodes from a sidebar onto a canvas
+- **Framework**: React 19.2 with TypeScript
+- **Build Tool**: Vite 7.2
+- **UI Library**: shadcn/ui (Radix UI primitives)
+- **Styling**: Tailwind CSS v4
+- **Workflow Engine**: React Flow (@xyflow/react)
+- **Icons**: Lucide React
+- **State Management**: React Hooks
 
-Connect them visually
+## 📋 Prerequisites
 
-Configure node details in a form panel
+Before you begin, ensure you have the following installed:
 
-Run a mock simulation to validate the workflow
+- **Node.js**: Version 20.19.0 or higher (or 22.12.0+)
+- **npm**: Version 10.2.3 or higher
+- A modern web browser (Chrome, Firefox, Safari, or Edge)
 
-The project meets the requirements outlined in the assignment PDF.
+## 🏗️ Installation
 
-🚀 **Features**
-🎛️ Workflow Canvas
+1. **Clone the repository** (or navigate to the project directory):
+   ```bash
+   cd Hr-workflow
+   ```
 
-Drag nodes onto a visual graph
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-Connect nodes with edges
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
 
-Auto-arranged handles for inputs/outputs
+4. **Open your browser** and navigate to the URL shown in the terminal (typically `http://localhost:5173`)
 
-Select nodes to edit their properties
+## 📁 Project Structure
 
-Mini-map, panning, and zoom controls
-
-Basic graph integrity checks during simulation
-
-🧱 **Node Types**
-
-Five node types are supported:
-
-Node Type	Purpose
-Start	First node of a workflow; supports metadata
-Task	User-performed action; supports description, due date, custom fields
-Approval	Requires manager/HR approval; optional threshold
-Automated Step	Integrates with mock automation actions; supports dynamic parameters
-End	Closing step; supports summary toggle
-
-Each node type has unique fields and validation rules.
-
-📝 **Node Configuration Panel**
-
-When a node is selected:
-
-Node details appear in the right panel
-
-All editable fields update live
-
-Custom key–value pairs can be added or removed
-
-Automated nodes fetch available actions from mock API and render dynamic parameter fields
-
-🧪 **Workflow Simulation Panel**
-
-A bottom testing panel lets users validate workflow logic.
-
-The simulation:
-
-Serializes the current workflow (nodes + edges)
-
-Sends it to a mocked /simulate API
-
-Performs structure validation:
-
-Exactly one Start node
-
-Start node must have no incoming edges
-
-Must contain at least one End node
-
-Detects unreachable nodes or cycles
-
-Produces a step-by-step execution log (BFS traversal)
-
-⚙️ **Mock API Layer**
-
-The app includes a lightweight in-browser mock API:
-
-GET /automations
-
-Returns a set of automation actions, e.g.:
+```
+Hr-workflow/
+├── src/
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   │   ├── button.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── select.tsx
+│   │   │   ├── switch.tsx
+│   │   │   └── textarea.tsx
+│   │   └── workflow/        # Workflow-specific components
+│   │       ├── app-sidebar.tsx      # Left sidebar with node palette
+│   │       ├── custom-nodes.tsx     # Custom node components
+│   │       ├── node-config-panel.tsx # Node configuration panel
+│   │       ├── node-sidebar.tsx     # Node details sidebar
+│   │       ├── right-panel.tsx      # Right panel for workflow info
+│   │       ├── sandbox-panel.tsx    # Workflow simulation panel
+│   │       ├── workflow-canvas.tsx   # Main workflow canvas
+│   │       └── workflow-header.tsx  # Header with actions
+│   ├── hooks/
+│   │   └── use-workflow.ts   # Main workflow state management hook
+│   ├── lib/
+│   │   ├── mock-api.ts       # Mock API for automations and simulations
+│   │   └── utils.ts          # Utility functions (cn helper)
+│   ├── types/
+│   │   └── workflow.ts       # TypeScript type definitions
+│   ├── App.tsx               # Main application component
+│   ├── index.css             # Global styles and Tailwind imports
+│   └── main.tsx              # Application entry point
+├── components.json           # shadcn/ui configuration
+├── tailwind.config.ts       # Tailwind CSS configuration
+├── vite.config.ts           # Vite configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json             # Project dependencies and scripts
 ```
 
-[
-  { "id": "send_email", "label": "Send Email", "params": ["to", "subject"] },
-  { "id": "generate_doc", "label": "Generate Document", "params": ["template", "recipient"] }
-]
+## 🎯 Usage
+
+### Creating a Workflow
+
+1. **Add Nodes**: Drag nodes from the left sidebar onto the canvas
+2. **Connect Nodes**: Click and drag from a node's output handle to another node's input handle
+3. **Configure Nodes**: Click on a node to open the configuration panel
+4. **Save Workflow**: Use the export button to save your workflow as JSON
+
+### Node Types
+
+- **Start Node**: Entry point of the workflow
+- **Task Node**: Manual task with assignee and due date
+- **Approval Node**: Requires approval from specified role
+- **Automated Node**: Automated action execution
+- **End Node**: Workflow completion point
+
+### Workflow Simulation
+
+1. Click the "Sandbox" button in the header
+2. Configure simulation parameters
+3. Run the simulation to see step-by-step execution
+4. View execution logs and results
+
+## 📜 Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm run build` - Build the project for production
+- `npm run preview` - Preview the production build locally
+- `npm run lint` - Run ESLint to check code quality
+
+## ⚙️ Configuration
+
+### Tailwind CSS
+
+The project uses Tailwind CSS v4 with the Vite plugin. Configuration is primarily done through CSS variables in `src/index.css`.
+
+### shadcn/ui
+
+Components are configured via `components.json`. To add more components:
+
+```bash
+npx shadcn@latest add [component-name]
 ```
 
-POST /simulate
+### TypeScript
 
-Accepts { nodes, edges } and returns:
-```
+Type definitions for workflow nodes and data are in `src/types/workflow.ts`. The project uses strict TypeScript settings for type safety.
 
-{
-  success: boolean
-  log: string[]
-  errors?: string[]
-}
-```
+## 🔧 Development
 
+### Adding New Node Types
 
-This keeps the project backend-free while matching the API contract expected in a real system.
+1. Define the node data type in `src/types/workflow.ts`
+2. Create the node component in `src/components/workflow/custom-nodes.tsx`
+3. Add configuration form in `src/components/workflow/node-config-panel.tsx`
+4. Register the node type in `src/hooks/use-workflow.ts`
 
-📁 Project Structure
-```
-src/
-│
-├── api/
-│   └── mockApi.ts        → Mock GET/POST endpoints
-│
-├── components/
-│   ├── Sidebar.tsx       → Node type list + drag source
-│   ├── WorkflowCanvas.tsx → React Flow canvas logic
-│   ├── WorkflowTestPanel.tsx → Simulation runner UI
-│   │
-│   ├── nodes/
-│   │   └── NodeBase.tsx  → Base renderer for all node types
-│   │
-│   └── forms/
-│       └── NodeFormPanel.tsx → Dynamic form for node configuration
-│
-├── types/
-│   └── workflow.ts       → Types for all node structures + graph
-│
-├── App.tsx               → Main layout (Sidebar + Canvas + Form + TestPanel)
-├── main.tsx              → React entry point
-├── App.css               → Layout styles
-└── index.css             → Global styles
-```
+### Styling
 
-This layout follows clean separation of concerns:
+- Use Tailwind CSS utility classes for styling
+- Custom CSS variables are defined in `src/index.css`
+- shadcn/ui components follow the design system defined in `components.json`
 
-Canvas logic → WorkflowCanvas.tsx
+## 🐛 Troubleshooting
 
-Node editing logic → NodeFormPanel.tsx
+### Common Issues
 
-Mock API interactions → mockApi.ts
+1. **PostCSS/Tailwind Errors**: Ensure you're using Node.js 20.19.0+ or 22.12.0+
+2. **Import Alias Errors**: Verify `@/*` alias is configured in `tsconfig.json` and `vite.config.ts`
+3. **Type Errors**: Run `npm run build` to check for TypeScript errors
 
-Shared Types → workflow.ts
+### Clearing Cache
 
-UI Panels → Sidebar + TestPanel + Canvas
+If you encounter build issues:
 
-🛠️ **Installation & Running Locally**
-1. Install dependencies
-```
+```bash
+rm -rf node_modules package-lock.json
 npm install
 ```
-2. Start development server
+
+## 🏛️ Architecture
+
+### Component Hierarchy
+
+The application follows a component-based architecture with clear separation of concerns:
+
 ```
-npm run dev
+App (Root)
+├── ReactFlowProvider
+└── WorkflowDesigner
+    ├── AppSidebar (Left)
+    │   ├── Navigation Items
+    │   └── NodeSidebar (Node Palette)
+    ├── Main Content Area
+    │   ├── WorkflowHeader (Top)
+    │   └── WorkflowCanvas (Center)
+    │       └── Custom Node Components
+    └── RightPanel
+        ├── NodeConfigPanel
+        ├── SandboxPanel
+        └── Insights Panel
 ```
 
-Your app runs at:
-```
-http://localhost:5173
-```
-🎨 **Design Decisions**
-1. React Flow for visual workflow editing
+### State Management
 
-React Flow provides an excellent abstraction for:
+- **Local Component State**: React `useState` for UI state (sidebar collapse, tab selection)
+- **Workflow State**: Custom `useWorkflow` hook managing nodes, edges, and selected node
+- **React Flow State**: `useNodesState` and `useEdgesState` for canvas state management
+- **State Flow**: Unidirectional data flow from parent to child components via props
 
-Node/edge rendering
+### Data Flow
 
-Drag-and-drop interactions
+1. **User Interactions** → Component event handlers
+2. **State Updates** → `useWorkflow` hook methods
+3. **React Flow Updates** → Canvas re-renders automatically
+4. **UI Updates** → Components re-render based on state changes
 
-Selection and connection logic
+### Key Architectural Patterns
 
-Extensibility for custom nodes
+- **Custom Hooks Pattern**: `useWorkflow` encapsulates all workflow logic
+- **Compound Components**: Panel system with tabs and content switching
+- **Render Props Pattern**: Node components receive props from React Flow
+- **Controlled Components**: Form inputs controlled by parent state
 
-This reduces boilerplate and increases stability.
+## 🎨 Design Decisions
 
-2. TypeScript Discriminated Unions
+### 1. Technology Choices
 
-Each node type has strongly typed fields. This ensures:
+**React Flow (@xyflow/react)**
+- Chosen for its robust workflow visualization capabilities
+- Built-in support for drag-and-drop, node connections, and canvas interactions
+- TypeScript support aligns with project requirements
+- Active maintenance and community support
 
-Form panel renders correct fields
+**Tailwind CSS v4**
+- Utility-first CSS for rapid UI development
+- Consistent design system with minimal custom CSS
+- Built-in dark mode support (prepared but not fully implemented)
+- Better performance with JIT compilation
 
-Node logic stays predictable
+**shadcn/ui Components**
+- Copy-paste component library (not a dependency)
+- Built on Radix UI for accessibility
+- Fully customizable with Tailwind CSS
+- Type-safe with TypeScript
 
-Simulation receives well-defined structures
+### 2. Component Design
 
-3. Local Mock API Instead of HTTP Server
+**Separation of Concerns**
+- UI components (`custom-nodes.tsx`) separate from logic (`use-workflow.ts`)
+- Configuration panels isolated in their own components
+- Reusable utilities in `lib/` directory
 
-The assignment allows using:
+**Type Safety**
+- Comprehensive TypeScript types for all node data
+- Union types for different node variants
+- Index signatures for React Flow compatibility
 
-JSON server, MSW, or local mocks.
+**Performance Optimizations**
+- `React.memo` for node components to prevent unnecessary re-renders
+- `useCallback` for event handlers to maintain referential equality
+- Lazy loading capabilities (prepared but not implemented)
 
-Local mocks simplify development while still matching the “API contract.”
+### 3. User Experience Decisions
 
-4. BFS Simulation for Clarity
+**Collapsible Sidebar**
+- Provides more canvas space when needed
+- Toggle button in header when collapsed for easy access
+- Maintains navigation access even when collapsed
 
-A breadth-first traversal is easy to understand and gives a clean, ordered execution log.
+**Drag-and-Drop Interface**
+- Intuitive node creation directly on canvas
+- Visual feedback with node highlighting
+- Connection handles for clear node relationships
 
-5. Key–Value Editor Component
+**Contextual Panels**
+- Right panel adapts based on selection (node config vs. workflow info)
+- Tab-based navigation for multiple panel functions
+- Persistent state during panel switching
 
-To support flexible metadata and custom task fields.
+### 4. Code Organization
 
-🚧 **What’s Missing / Future Improvements (Honest Section)**
+**File Structure**
+- Feature-based component organization
+- Shared utilities in `lib/`
+- Type definitions centralized in `types/`
+- UI components separated from workflow components
 
-This section is required in the assignment as “What I would add with more time.”
+**Naming Conventions**
+- PascalCase for components
+- camelCase for functions and variables
+- Descriptive names for clarity
 
-Missing but planned:
+### 5. Styling Approach
 
-Delete nodes and edges through UI or keyboard shortcuts
+**Tailwind Utility Classes**
+- Inline utilities for rapid development
+- Consistent spacing and color system
+- Responsive design utilities (prepared for future)
 
-Live canvas validation while building (not only on simulation)
+**CSS Variables**
+- Theme customization via CSS variables
+- Easy dark mode implementation
+- Consistent color palette across components
 
-Stronger required-field validation (e.g., Task title must not be empty)
+## ✅ Completed Features
 
-Visual error markers on problematic nodes
+### Core Functionality
 
-Export/Import workflow as JSON
+1. **Workflow Canvas**
+   - Drag-and-drop node creation
+   - Node connections with visual edges
+   - Node selection and highlighting
+   - Canvas pan and zoom controls
+   - Grid background for alignment
 
-Undo/Redo stack for canvas operations
+2. **Node Types**
+   - Start Node with metadata configuration
+   - Task Node with assignee and due date
+   - Approval Node with approver role selection
+   - Automated Node with action configuration
+   - End Node with completion message
 
-Reusable custom hooks for cleaner logic (useWorkflowGraph, useSimulation)
+3. **Node Configuration**
+   - Dynamic configuration panels per node type
+   - Form validation and data persistence
+   - Real-time updates on canvas
+   - Node deletion with edge cleanup
 
-Auto-layout for large workflows
+4. **Workflow Management**
+   - Export workflows as JSON
+   - Import workflows from JSON
+   - Clear canvas functionality
+   - Node ID generation and tracking
 
-These are not mandatory but would significantly enhance usability.
+5. **UI Components**
+   - Collapsible sidebar with navigation
+   - Right panel with tab navigation
+   - Workflow header with actions
+   - Responsive layout structure
 
-✅ **Status**
+6. **Visual Design**
+   - Color-coded node types
+   - Icon-based node representation
+   - Smooth animations for connections
+   - Modern, clean interface
 
-All core requirements of the assignment have been implemented, including:
+### Technical Implementation
 
-Node types
+- TypeScript type safety throughout
+- Custom React hooks for state management
+- Component memoization for performance
+- Tailwind CSS styling system
+- shadcn/ui component integration
+- React Flow integration and customization
 
-Node forms
+## 🚧 Future Enhancements
 
-Drag & drop builder
+### Planned Features (With More Time)
 
-Mock APIs
+1. **Workflow Execution**
+   - Real workflow engine integration
+   - Task assignment and tracking
+   - Approval workflow execution
+   - Automated action execution
+   - Status tracking and notifications
 
-Workflow simulation
+2. **Advanced Node Features**
+   - Conditional branching nodes
+   - Parallel execution paths
+   - Sub-workflow nodes
+   - Timer/delay nodes
+   - Data transformation nodes
 
-Validation & logging
+3. **Workflow Validation**
+   - Validation rules engine
+   - Workflow completeness checks
+   - Circular dependency detection
+   - Required field validation
+   - Workflow testing framework
 
-Additional improvements are documented for future extensions.
-[
-  { "id": "send_email", "label": "Send Email", "params": ["to", "subject"] },
-  { "id": "generate_doc", "label": "Generate Document", "params": ["template", "recipient"] }
-]
+4. **Enhanced UI/UX**
+   - Undo/Redo functionality
+   - Keyboard shortcuts
+   - Node templates library
+   - Workflow templates
+   - Drag-and-drop from sidebar
 
-POST /simulate
+5. **Collaboration Features**
+   - Multi-user editing
+   - Workflow versioning
+   - Change history and audit logs
+   - Comments and annotations
+   - Workflow sharing
 
-Accepts { nodes, edges } and returns:
+6. **Performance Improvements**
+   - Virtualized canvas for large workflows
+   - Lazy loading of components
+   - Optimized re-rendering
+   - Canvas performance monitoring
 
-{
-  success: boolean
-  log: string[]
-  errors?: string[]
-}
+7. **Backend Integration**
+   - REST API integration
+   - Database persistence
+   - User authentication
+   - Role-based access control
+   - Workflow deployment system
 
+8. **Analytics & Insights**
+   - Workflow execution metrics
+   - Performance analytics
+   - Usage statistics
+   - Bottleneck identification
+   - Execution history dashboard
 
-This keeps the project backend-free while matching the API contract expected in a real system.
+9. **Accessibility**
+   - Full keyboard navigation
+   - Screen reader support
+   - ARIA labels and roles
+   - High contrast mode
+   - Focus management
 
+10. **Testing**
+    - Unit tests for hooks and utilities
+    - Component tests
+    - Integration tests
+    - E2E tests with Playwright/Cypress
+    - Visual regression tests
+
+### Technical Debt to Address
+
+- **Type Safety Improvements**: Better handling of React Flow's type constraints
+- **Error Handling**: Comprehensive error boundaries and user-friendly error messages
+- **Loading States**: Skeleton loaders and loading indicators
+- **Responsive Design**: Mobile and tablet layout optimizations
+- **Code Splitting**: Lazy loading of heavy components
+- **Documentation**: Inline code documentation and API docs
+
+## 📝 License
+
+This project is private and intended for assignment purposes.
+
+## 👥 Contributing
+
+This is a HR-Workflow Designer Module project. For questions or issues, please contact the project maintainer.
+
+---
+
+**Built with ❤️ using React, TypeScript, and Vite**
