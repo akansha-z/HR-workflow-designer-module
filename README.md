@@ -2,7 +2,7 @@
 
 A modern, interactive workflow designer application built with React, TypeScript, and Vite. This application allows users to create, configure, and simulate HR workflows using a visual drag-and-drop interface.
 
-## 🚀 Features
+##  Features
 
 - **Visual Workflow Designer**: Drag-and-drop interface for creating workflows
 - **Multiple Node Types**: Support for Start, Task, Approval, Automated, and End nodes
@@ -12,7 +12,7 @@ A modern, interactive workflow designer application built with React, TypeScript
 - **Modern UI**: Built with shadcn/ui components and Tailwind CSS
 - **Type-Safe**: Full TypeScript support for better development experience
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Framework**: React 19.2 with TypeScript
 - **Build Tool**: Vite 7.2
@@ -22,7 +22,7 @@ A modern, interactive workflow designer application built with React, TypeScript
 - **Icons**: Lucide React
 - **State Management**: React Hooks
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -30,7 +30,7 @@ Before you begin, ensure you have the following installed:
 - **npm**: Version 10.2.3 or higher
 - A modern web browser (Chrome, Firefox, Safari, or Edge)
 
-## 🏗️ Installation
+##  Installation
 
 1. **Clone the repository** (or navigate to the project directory):
    ```bash
@@ -49,7 +49,7 @@ Before you begin, ensure you have the following installed:
 
 4. **Open your browser** and navigate to the URL shown in the terminal (typically `http://localhost:5173`)
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Hr-workflow/
@@ -89,7 +89,7 @@ Hr-workflow/
 └── package.json             # Project dependencies and scripts
 ```
 
-## 🎯 Usage
+##  Usage
 
 ### Creating a Workflow
 
@@ -113,14 +113,14 @@ Hr-workflow/
 3. Run the simulation to see step-by-step execution
 4. View execution logs and results
 
-## 📜 Available Scripts
+##  Available Scripts
 
 - `npm run dev` - Start the development server
 - `npm run build` - Build the project for production
 - `npm run preview` - Preview the production build locally
 - `npm run lint` - Run ESLint to check code quality
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Tailwind CSS
 
@@ -138,7 +138,7 @@ npx shadcn@latest add [component-name]
 
 Type definitions for workflow nodes and data are in `src/types/workflow.ts`. The project uses strict TypeScript settings for type safety.
 
-## 🔧 Development
+##  Development
 
 ### Adding New Node Types
 
@@ -153,7 +153,7 @@ Type definitions for workflow nodes and data are in `src/types/workflow.ts`. The
 - Custom CSS variables are defined in `src/index.css`
 - shadcn/ui components follow the design system defined in `components.json`
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -170,7 +170,7 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-## 🏛️ Architecture
+##  Architecture
 
 ### Component Hierarchy
 
@@ -214,7 +214,7 @@ App (Root)
 - **Render Props Pattern**: Node components receive props from React Flow
 - **Controlled Components**: Form inputs controlled by parent state
 
-## 🎨 Design Decisions
+##  Design Decisions
 
 ### 1. Technology Choices
 
@@ -295,7 +295,7 @@ App (Root)
 - Easy dark mode implementation
 - Consistent color palette across components
 
-## ✅ Completed Features
+##  Completed Features
 
 ### Core Functionality
 
@@ -346,7 +346,7 @@ App (Root)
 - shadcn/ui component integration
 - React Flow integration and customization
 
-## 🚧 Future Enhancements
+##  Future Enhancements
 
 ### Planned Features (With More Time)
 
